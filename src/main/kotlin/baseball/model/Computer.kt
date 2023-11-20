@@ -1,21 +1,19 @@
 package baseball.model
 
+import baseball.util.Constants.NUMBER_COUNT
+import baseball.util.Constants.NUMBER_END
+import baseball.util.Constants.NUMBER_START
 import camp.nextstep.edu.missionutils.Randoms
 
 class Computer {
-    private val numbers = mutableListOf<Int>()
+    private var numbers = mutableListOf<Int>()
 
     init {
         setNumbers()
     }
 
     private fun setNumbers() {
-        while (numbers.size < 3) {
-            val randomNumber = Randoms.pickNumberInRange(1, 9)
-            if (!numbers.contains(randomNumber)) {
-                numbers.add(randomNumber)
-            }
-        }
+        numbers = Randoms.pickUniqueNumbersInRange(NUMBER_START,NUMBER_END,NUMBER_COUNT)
     }
 
     private fun resetNumbers() {
