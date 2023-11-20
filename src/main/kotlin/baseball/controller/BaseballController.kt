@@ -8,5 +8,6 @@ class BaseballController {
     private val outputView = OutputView()
 
     fun run() {
+        outputView.printGameStart()
     }
 }
