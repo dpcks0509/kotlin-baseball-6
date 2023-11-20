@@ -1,5 +1,6 @@
 package baseball.controller
 
+import baseball.model.Computer
 import baseball.view.InputView
 import baseball.view.OutputView
 
@@ -9,5 +10,7 @@ class BaseballController {
 
     fun run() {
         outputView.printGameStart()
+
+        val computer = Computer()
     }
 }
