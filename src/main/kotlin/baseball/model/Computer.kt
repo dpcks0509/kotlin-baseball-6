@@ -6,19 +6,17 @@ import baseball.util.Constants.NUMBER_START
 import camp.nextstep.edu.missionutils.Randoms
 
 class Computer {
-    private var numbers = mutableListOf<Int>()
+    private val randomNumbers = mutableListOf<Int>()
 
-    init {
-        setNumbers()
+    fun setRandomNumbers() {
+        randomNumbers.clear()
+        while (randomNumbers.size < NUMBER_COUNT) {
+            val randomNumber = Randoms.pickNumberInRange(NUMBER_START, NUMBER_END)
+            if (!randomNumbers.contains(randomNumber)) {
+                randomNumbers.add(randomNumber)
+            }
+        }
     }
 
-    private fun setNumbers() {
-        numbers = Randoms.pickUniqueNumbersInRange(NUMBER_START,NUMBER_END,NUMBER_COUNT)
-    }
-
-    private fun resetNumbers() {
-        numbers.clear()
-    }
-
-    fun getNumbers() = numbers
+    fun getRandomNumbers() = randomNumbers
 }
