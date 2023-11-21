@@ -1,7 +1,5 @@
 package baseball.model
 
-import baseball.util.Exception
-
 class GamePlayer() {
     private var answerNumbers = listOf<Int>()
 
