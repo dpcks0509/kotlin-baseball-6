@@ -1,7 +1,10 @@
 package baseball
 
+import baseball.model.Computer
 import baseball.util.Validator.validateAnswerNumbers
 import baseball.util.Validator.validateGameDecision
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
@@ -54,5 +57,33 @@ class BaseballTest {
     @ValueSource(strings = ["-1", "0 ", " 3"])
     fun `게임 재시작 여부 입력 예외처리 (1과 2 중 하나의 수가 아니다)`(input: String) {
         assertThrows<IllegalArgumentException> { validateAnswerNumbers(input) }
+    }
+
+    @Test
+    fun `컴퓨터 랜덤 숫자 생성 3자리 확인`() {
+        val computer = Computer()
+
+        computer.setRandomNumbers()
+
+        assertThat(computer.getRandomNumbers().size == 3)
+    }
+
+    @Test
+    fun `컴퓨터 랜덤 숫자 생성 숫자 범위 확인`() {
+        val computer = Computer()
+
+        computer.setRandomNumbers()
+        println(computer.getRandomNumbers())
+
+        assertThat(computer.getRandomNumbers().all { it in 1..9 }).isTrue
+    }
+
+    @Test
+    fun `컴퓨터 랜덤 숫자 생성 중복 확인`() {
+        val computer = Computer()
+
+        computer.setRandomNumbers()
+
+        assertThat(computer.getRandomNumbers().toSet().size == 3)
     }
 }
