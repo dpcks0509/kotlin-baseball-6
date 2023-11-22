@@ -1,9 +1,12 @@
 package baseball
 
+import baseball.model.BaseballGame
 import baseball.model.Computer
+import baseball.util.Constants.THREE_STRIKE
 import baseball.util.Validator.validateAnswerNumbers
 import baseball.util.Validator.validateGameDecision
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
@@ -75,7 +78,7 @@ class BaseballTest {
         computer.setRandomNumbers()
         println(computer.getRandomNumbers())
 
-        assertThat(computer.getRandomNumbers().all { it in 1..9 }).isTrue
+        assertTrue(computer.getRandomNumbers().all { it in 1..9 })
     }
 
     @Test
@@ -85,5 +88,55 @@ class BaseballTest {
         computer.setRandomNumbers()
 
         assertThat(computer.getRandomNumbers().toSet().size == 3)
+    }
+
+    @Test
+    fun `정답 결과 판단 확인 (3스트라이크)`() {
+        val baseballGame = BaseballGame()
+        val expectResult = THREE_STRIKE
+
+        val actualResult = baseballGame.getResult(listOf(1, 2, 3), listOf(1, 2, 3))
+
+        assertThat(actualResult).isEqualTo(expectResult)
+    }
+
+    @Test
+    fun `정답 결과 판단 확인 (낫싱)`() {
+        val baseballGame = BaseballGame()
+        val expectResult = "낫싱"
+
+        val actualResult = baseballGame.getResult(listOf(1, 2, 3), listOf(4, 5, 6))
+
+        assertThat(actualResult).isEqualTo(expectResult)
+    }
+
+    @Test
+    fun `정답 결과 판단 확인 (볼, 스트라이크)`() {
+        val baseballGame = BaseballGame()
+        val expectResult = "2볼 1스트라이크"
+
+        val actualResult = baseballGame.getResult(listOf(1, 2, 3), listOf(1, 3, 2))
+
+        assertThat(actualResult).isEqualTo(expectResult)
+    }
+
+    @Test
+    fun `정답 결과 판단 확인 (스트라이크)`() {
+        val baseballGame = BaseballGame()
+        val expectResult = "2스트라이크"
+
+        val actualResult = baseballGame.getResult(listOf(1, 2, 3), listOf(1, 2, 5))
+
+        assertThat(actualResult).isEqualTo(expectResult)
+    }
+
+    @Test
+    fun `정답 결과 판단 확인 (볼)`() {
+        val baseballGame = BaseballGame()
+        val expectResult = "1볼"
+
+        val actualResult = baseballGame.getResult(listOf(1, 2, 3), listOf(4, 5, 1))
+
+        assertThat(actualResult).isEqualTo(expectResult)
     }
 }
