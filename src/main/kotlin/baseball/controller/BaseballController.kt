@@ -5,6 +5,7 @@ import baseball.model.Computer
 import baseball.model.GamePlayer
 import baseball.util.Constants.GAME_START
 import baseball.util.Constants.NO_ANSWER
+import baseball.util.Constants.THREE_STRIKE
 import baseball.view.InputView
 import baseball.view.OutputView
 
@@ -54,8 +55,8 @@ class BaseballController {
         outputView.printResult(hint)
     }
 
-    private fun checkAnswer(hint: Pair<Int, Int>) {
-        if (hint.second != 3) gameDecision = NO_ANSWER
+    private fun checkAnswer(hint: String) {
+        if (hint != THREE_STRIKE) gameDecision = NO_ANSWER
     }
 
     private fun isGameEnded(): Boolean {
